@@ -1,0 +1,15 @@
+{
+  "description": "星算速算家 - 小学算术速算闯关（微信小游戏）",
+  "setting": {
+    "urlCheck": false,
+    "es6": false,
+    "minified": false,
+    "postcss": false,
+    "minifyWXSS": false
+  },
+  "compileType": "game",
+  "libVersion": "3.0.0",
+  "appid": "touristappid",
+  "projectname": "star-math",
+  "condition": {}
+}

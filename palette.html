@@ -1,0 +1,103 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#F2F2F5;padding:24px}
+h1{font-size:22px;margin-bottom:6px;color:#1A1A1A}
+.sub{font-size:13px;color:#666;margin-bottom:22px;line-height:1.7}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:20px}
+.card{border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.08)}
+.phone{height:420px;position:relative;padding:20px;display:flex;flex-direction:column}
+.hd{padding:4px 0 14px}
+.t1{font-size:26px;font-weight:800;letter-spacing:1px}
+.t2{font-size:12px;margin-top:4px;opacity:.72}
+.tabs{display:flex;gap:10px;margin-bottom:16px}
+.tab{flex:1;height:42px;border-radius:21px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
+.grid6{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;flex:1}
+.gc{border-radius:13px;padding:11px 4px;text-align:center;display:flex;flex-direction:column;justify-content:center;gap:3px}
+.gn{font-size:14px;font-weight:800}
+.gd{font-size:9px;opacity:.7;line-height:1.3}
+.hint{text-align:center;font-size:12px;margin-top:14px;padding:9px;border-radius:11px;font-weight:600}
+.go{margin-top:auto;height:52px;border-radius:26px;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:800}
+.ft{padding:13px 16px;font-size:12.5px;line-height:1.6}
+.nm{font-weight:800;font-size:14px;margin-bottom:5px}
+.sw{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}
+.s{width:22px;height:22px;border-radius:6px;border:1px solid rgba(0,0,0,.08)}
+.k{display:flex;justify-content:space-between;font-size:10.5px;margin-top:6px;opacity:.8}
+</style></head><body>
+<h1>星算速算家 · UI 色系方案</h1>
+<div class="sub">点开网页（<b>http://127.0.0.1:8899/palette.html</b>）可以直接在浏览器里看。<br>
+6 套全部通过 WCAG AA 校验：正文/次要/辅助 对白卡均 ≥ 4.5:1（辅助色已逐套加深校准）。</div>
+<div class="grid" id="g"></div>
+<script>
+const THEMES = [
+ { n:'A 奶油蜜桃', tag:'当前基调的暖化版，最贴近低龄',
+   bg:['#FFF4EC','#FFE8DC','#FFD9C4'], brand:'#E8734A', brandD:'#B84A28', brandL:'#FFB694',
+   ink:'#4A2A1E', inkSub:'#7A5145', inkAux:'#856C5F', card:'#FFFFFF',
+   stage:'#FFC9A8', stageE:'#F79E7E',
+   gold:'#FFB020', goldD:'#D97706', success:'#1B7F4C', successL:'#2FBF71', successBg:'#D6F5E4',
+   n50:'#FFF1E8', n100:'#FFDCC8', n300:'#E8B79C',
+   kAlt:'#FFF6F0' },
+ { n:'B 薄荷奶油', tag:'清爽温柔，男孩子也能接受',
+   bg:['#F0FBF5','#DFF6EC','#C9EEDF'], brand:'#2FA98A', brandD:'#1C7A63', brandL:'#8FDCC6',
+   ink:'#1E3D35', inkSub:'#3E6B5D', inkAux:'#54786D', card:'#FFFFFF',
+   stage:'#A8E6CF', stageE:'#6BC9AB',
+   gold:'#FFB84D', goldD:'#D98A15', success:'#1B7F4C', successL:'#2FBF71', successBg:'#D6F5E4',
+   n50:'#EEF9F4', n100:'#D2F0E4', n300:'#9FD8C4',
+   kAlt:'#F2FBF7' },
+ { n:'C 蜜桃粉', tag:'最甜最软，公主风',
+   bg:['#FFF0F6','#FFE0EC','#FFCADD'], brand:'#E85D8A', brandD:'#B83A62', brandL:'#FFA8C4',
+   ink:'#4A1F33', inkSub:'#7D4258', inkAux:'#8C6674', card:'#FFFFFF',
+   stage:'#FFB8D0', stageE:'#F58BAB',
+   gold:'#FFB84D', goldD:'#D98A15', success:'#1B7F4C', successL:'#2FBF71', successBg:'#D6F5E4',
+   n50:'#FFF0F5', n100:'#FFD8E6', n300:'#F0A8C0',
+   kAlt:'#FFF5F8' },
+ { n:'D 天空蓝', tag:'明快干净，男女通吃',
+   bg:['#EFF8FF','#DDEDFF','#C4DFFF'], brand:'#3B8EDB', brandD:'#1F63A8', brandL:'#9CC8F0',
+   ink:'#162F45', inkSub:'#3A5872', inkAux:'#5E778D', card:'#FFFFFF',
+   stage:'#A8D4F5', stageE:'#6BADE4',
+   gold:'#FFB020', goldD:'#D97706', success:'#1B7F4C', successL:'#2FBF71', successBg:'#D6F5E4',
+   n50:'#EFF7FE', n100:'#D3E7FA', n300:'#9CC0DE',
+   kAlt:'#F2F8FD' },
+ { n:'E 鹅��嫩绿', tag:'护眼放松，低刺激',
+   bg:['#F6FBEF','#E8F5D8','#D3EABA'], brand:'#6BA33C', brandD:'#48742A', brandL:'#B4DC90',
+   ink:'#26361A', inkSub:'#4A6338', inkAux:'#667B57', card:'#FFFFFF',
+   stage:'#C6E5A0', stageE:'#96C572',
+   gold:'#FFB020', goldD:'#D97706', success:'#1B7F4C', successL:'#2FBF71', successBg:'#D6F5E4',
+   n50:'#F3FAEB', n100:'#DDEDC9', n300:'#AECF93',
+   kAlt:'#F5FAF0' },
+ { n:'F 香芋紫', tag:'保留紫调但更柔和',
+   bg:['#F8F2FB','#EFE2F7','#E0CEEF'], brand:'#9B72C9', brandD:'#6F4A9E', brandL:'#C7ADE4',
+   ink:'#2E1F3E', inkSub:'#544068', inkAux:'#7A6B96', card:'#FFFFFF',
+   stage:'#D9C2EE', stageE:'#B294D8',
+   gold:'#FFB84D', goldD:'#D98A15', success:'#1B7F4C', successL:'#2FBF71', successBg:'#D6F5E4',
+   n50:'#F7F1FA', n100:'#EADCF4', n300:'#C3AEDD',
+   kAlt:'#F8F4FB' }
+];
+const GRADES=['一年级','二年级','三年级','四年级','五年级','六年级'];
+const DESCS=['20 以内\n加减法','两位数加减\n表内乘法','多位数加减\n乘除法','三位数乘除\n小数加减','小数乘除\n多位数乘除','分数混合\n运算括号'];
+
+document.getElementById('g').innerHTML = THEMES.map(t=>{
+  const gc = GRADES.map((gn,i)=>`<div class="gc" style="background:${i===0?t.gold:'#fff'};border:2.5px solid ${i===0?t.goldD:t.n100}">
+    <div class="gn" style="color:${i===0?t.ink:t.inkSub}">${gn}</div>
+    <div class="gd" style="color:${t.inkSub};white-space:pre-line">${DESCS[i]}</div></div>`).join('');
+  const sw=[t.bg[0],t.bg[2],t.brand,t.brandD,t.brandL,t.card,t.gold,t.successL,t.stage,t.n300]
+    .map(c=>`<div class="s" style="background:${c}"></div>`).join('');
+  return `<div class="card">
+    <div class="phone" style="background:linear-gradient(180deg,${t.bg[0]},${t.bg[1]},${t.bg[2]})">
+      <div class="hd"><div class="t1" style="color:${t.ink};text-shadow:0 2px 0 ${t.n100}">星算速算家</div>
+      <div class="t2" style="color:${t.inkSub}">算得越快，星星越多！</div></div>
+      <div class="tabs">
+        <div class="tab" style="background:#ffffff99;color:${t.inkSub};border:2px solid ${t.brandL}">选年级</div>
+        <div class="tab" style="background:${t.brand};color:#fff">选角色</div>
+      </div>
+      <div class="grid6">${gc}</div>
+      <div class="hint" style="background:${t.successBg};color:${t.success}">一年级：20 以内加减法</div>
+      <div class="go" style="background:${t.successL};color:#fff;box-shadow:0 4px 0 ${t.success}">开始游戏</div>
+    </div>
+    <div class="ft" style="color:#333">
+      <div class="nm">${t.n} <span style="font-weight:400;color:#888;font-size:11.5px">${t.tag}</span></div>
+      <div class="k"><span>正文 ${t.ink}</span><span>次要 ${t.inkSub}</span><span>辅助 ${t.inkAux}</span></div>
+      <div class="sw">${sw}</div>
+    </div></div>`;
+}).join('');
+</script></body></html>
